@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Таблица данных</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Отчет о гонках</h1>
+    {% if report %}
+    <table>
+        <thead>
+            <tr>
+                <th>Позиция</th>
+                <th>Имя</th>
+                <th>Команда</th>
+                <th>Время</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in report %}
+            <tr>
+                <td>{{ loop.index }}</td>  <!-- Позиция -->
+                <td>{{ row[1] }}</td>     <!-- Имя -->
+                <td>{{ row[2] }}</td>     <!-- Команда -->
+                <td>{{ row[0] }}</td>     <!-- Время -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Нет данных для отчета</p>
+    {% endif %}
+
+    <h2>Ошибки в данных</h2>
+    {% if errors %}
+    <table>
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Команда</th>
+                <th>Ошибка</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for err_name, err_team, err_msg in errors %}
+            <tr>
+                <td>{{ err_name }}</td>
+                <td>{{ err_team }}</td>
+                <td>{{ err_msg }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Ошибок не обнаружено</p>
+    {% endif %}
+</body>
+</html>
